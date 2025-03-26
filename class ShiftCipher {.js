@@ -1,0 +1,57 @@
+class ShiftCipher {
+    constructor(shift) {
+      this.shift = shift;
+    }
+    encrypt (string) {
+      let newString = ''
+      for (let letter of string) {
+        let iLetter = letter.charCodeAt();
+        let backLetter = String.fromCharCode(iLetter + this.shift);
+        let IOverRange = iLetter + this.shift;
+        let OverRangeLetter = String.fromCharCode(IOverRange - 26);
+        if (iLetter >= 65 && iLetter <= 90) { //CAPITAL LETTERS
+          if (IOverRange > 90) {
+            newString = newString + OverRangeLetter;
+         } else {
+            newString = newString + backLetter;
+          }
+       } else if (iLetter >= 97 && iLetter <= 122) {
+           if (IOverRange > 122) {
+              newString = newString + OverRangeLetter;
+           } else {
+              newString = newString + backLetter;
+         }
+       } else newString = newString + letter;
+     } return newString.toUpperCase();
+    }
+    decrypt (string) {
+      let newString = ''
+      for (let letter of string) {
+        let iLetter = letter.charCodeAt();
+        let backLetter = String.fromCharCode(iLetter - this.shift);
+        let IOverRange = iLetter - this.shift;
+        let OverRangeLetter = String.fromCharCode(IOverRange + 26);
+        if (iLetter >= 65 && iLetter <= 90) { //CAPITAL LETTERS
+          if (IOverRange < 65) {
+            newString = newString + OverRangeLetter;
+         } else {
+            newString = newString + backLetter;
+          }
+       } else if (iLetter >= 97 && iLetter <= 122) {
+           if (IOverRange < 97) {
+              newString = newString + OverRangeLetter;
+           } else {
+              newString = newString + backLetter;
+         }
+       } else newString = newString + letter;
+     } return newString.toLowerCase();
+    }
+  };
+  
+  test2 = new ShiftCipher(2)
+  console.log(test2.encrypt('z !y f u r 5 ?Z'))
+  const cipher = new ShiftCipher(2);
+  console.log(cipher.encrypt('I love to code!'));
+  console.log(test2.decrypt('a A B b C c D d Z z'));
+  console.log(cipher.decrypt('K <3 OA RWRRA'))
+  
